@@ -1,5 +1,10 @@
 import time as t
+from threading import Event
 class FizzBuzz:
+    fizz = Event()
+    buzz = Event()
+    fizzbuzz = Event()
+
     def __init__(self, n):
         self.string_list = []
         self.size = n
@@ -8,23 +13,26 @@ class FizzBuzz:
     def index(self):
         return len(self.string_list)
         
+    def fizzbuzz(cls, self):
+        cls.fizzbuzz.wait()
+        self.string_list.append("FizzBuzz")
 
-    def fizzbuzz(self, x, y):
+    def fizz(cls, self):
+        cls.fizz.wait()
+        self.string_list.append("Fizz")
+
+    def buzz(cls, self):
+        cls.buzz.wait()
+        self.string_list.append("Buzz")
+
+    def number(cls, self, x, y):
         z = x * y
         for i in range(1, self.size + 1):
-            if ((i % z) == 0):
-                self.string_list.append("FizzBuzz")
-
-    def fizz(self, x):
-        for i in range(1, self.size + 1):
-            if ((i % x) == 0):
-                self.string_list.append("Fizz")
-
-    def buzz(self, y):
-        for i in range(1, self.size + 1):
-            if ((i % y) == 0):
-                self.string_list.append("Buzz")
-
-    def number(self):
-        for i in range(1, self.size + 1):
-            self.string_list.append(str(i))
+            if ((self.index + 1) % z) == 0:
+                cls.fizzbuzz.set()
+            elif ((self.index + 1) % x) == 0:
+                cls.fizz.set()
+            elif ((self.index + 1) % y) == 0:
+                cls.buzz.set()
+            else:
+                self.string_list.append(str(i))

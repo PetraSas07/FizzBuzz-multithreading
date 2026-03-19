@@ -5,10 +5,12 @@ def main():
     # Create original instance to work on
     fizzbuzz_list = FizzBuzz(16)
     # Create threads
-    thread_A = threading.Thread(target= fizzbuzz_list.number)
-    thread_B = threading.Thread(target= fizzbuzz_list.fizzbuzz, args= (3, 5))
-    thread_C = threading.Thread(target= fizzbuzz_list.fizz, args= (3,))
-    thread_D = threading.Thread(target= fizzbuzz_list.buzz, args= (5,))
+    first_number = 3
+    second_number = 5
+    thread_A = threading.Thread(target= fizzbuzz_list.number, args= (first_number, second_number))
+    thread_B = threading.Thread(target= fizzbuzz_list.fizzbuzz, args= (first_number, second_number))
+    thread_C = threading.Thread(target= fizzbuzz_list.fizz, args= (first_number,))
+    thread_D = threading.Thread(target= fizzbuzz_list.buzz, args= (second_number,))
     
 
     # Start the threads
