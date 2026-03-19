@@ -1,5 +1,3 @@
-import threading
-
 class Fizzbuzz:
     def __init__(self, n):
         result = []
@@ -22,17 +20,3 @@ class Fizzbuzz:
         for i in range(self.size):
             if ((i % y) == 0):
                 self.list[i] = "Buzz"
-
-    
-    result = []
-    if n >= 1:
-        for i in range(1, n + 1):
-            if (i % 15) == 0:
-                result.append("FizzBuzz")
-            elif (i % 3) == 0:
-                result.append("Fizz")
-            elif (i % 5) == 0:
-                result.append("Buzz")
-            else:
-                result.append(str(i))
-    return result
