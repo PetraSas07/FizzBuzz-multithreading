@@ -1,10 +1,15 @@
 import time as t
 from threading import Event
 class FizzBuzz:
+    event_list = []
     event_f = Event()
+    event_list.append(event_f)
     event_b = Event()
+    event_list.append(event_b)
     event_fb = Event()
+    event_list.append(event_fb)
     event_n = Event()
+    event_list.append(event_n)
     event_main = Event()
 
     def __init__(self, n):

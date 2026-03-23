@@ -12,22 +12,24 @@ def main():
     multiplied = first_number * second_number
 
     # Create threads and add them to a list
+    threads = []
     thread_A = threading.Thread(target= fizzbuzz_list.number)
+    threads.append(thread_A)
     thread_B = threading.Thread(target= fizzbuzz_list.fizzbuzz)
+    threads.append(thread_B)
     thread_C = threading.Thread(target= fizzbuzz_list.fizz)
+    threads.append(thread_C)
     thread_D = threading.Thread(target= fizzbuzz_list.buzz)
+    threads.append(thread_D)
     
 
     # Start the threads
-    thread_A.start()
-    thread_B.start()
-    thread_C.start()
-    thread_D.start()
+    for thread in threads:
+        thread.start()
 
     print("Threads started")
     for i in range(fizzbuzz_list.size):
         print("number:", i)
-        # t.sleep(1)
         if ((fizzbuzz_list.index + 1) % multiplied) == 0:
             fizzbuzz_list.event_fb.set()
             while fizzbuzz_list.event_fb.is_set():
@@ -50,18 +52,17 @@ def main():
                 fizzbuzz_list.event_main.wait()
     print("out from fro loop")
 
-    fizzbuzz_list.event_b.set()
-    fizzbuzz_list.event_f.set()
-    fizzbuzz_list.event_fb.set()
-    fizzbuzz_list.event_n.set()
+    for event in fizzbuzz_list.event_list:
+        event.set()
+    # fizzbuzz_list.event_f.set()
+    # fizzbuzz_list.event_fb.set()
+    # fizzbuzz_list.event_n.set()
 
     print("after main clears")
 
     # Join the threads
-    thread_A.join()
-    thread_B.join()
-    thread_C.join()
-    thread_D.join()
+    for thread in threads:
+        thread.join()
 
     print("after the main joins")
     print(fizzbuzz_list.string_list)
