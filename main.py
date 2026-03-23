@@ -1,10 +1,9 @@
 from fizzbuzz import FizzBuzz
 import threading
-import time as t
 
 def main():
     # Create original instance to work on
-    fizzbuzz_list = FizzBuzz(16)
+    fizzbuzz_list = FizzBuzz(30)
 
     # Create fizzbuzz numbers
     first_number = 3
@@ -27,20 +26,21 @@ def main():
     for thread in threads:
         thread.start()
 
+    # Fizzbuzz logic with thread events
     print("Threads started")
     for i in range(fizzbuzz_list.size):
         print("number:", i)
-        if ((fizzbuzz_list.index + 1) % multiplied) == 0:
+        if ((i + 1) % multiplied) == 0:
             fizzbuzz_list.event_fb.set()
             while fizzbuzz_list.event_fb.is_set():
                 print("waiting for main")
                 fizzbuzz_list.event_main.wait()
-        elif ((fizzbuzz_list.index + 1) % first_number) == 0:
+        elif ((i + 1) % first_number) == 0:
             fizzbuzz_list.event_f.set()
             while fizzbuzz_list.event_f.is_set():
                 print("waiting for main")
                 fizzbuzz_list.event_main.wait()
-        elif ((fizzbuzz_list.index + 1) % second_number) == 0:
+        elif ((i + 1) % second_number) == 0:
             fizzbuzz_list.event_b.set()
             while fizzbuzz_list.event_b.is_set():
                 print("waiting for main")
@@ -50,13 +50,11 @@ def main():
             while fizzbuzz_list.event_n.is_set():
                 print("waiting for main")
                 fizzbuzz_list.event_main.wait()
-    print("out from fro loop")
+    print("out from for loop")
 
+    # Clearing the fizzbuzz method while loop waits
     for event in fizzbuzz_list.event_list:
         event.set()
-    # fizzbuzz_list.event_f.set()
-    # fizzbuzz_list.event_fb.set()
-    # fizzbuzz_list.event_n.set()
 
     print("after main clears")
 
@@ -64,6 +62,7 @@ def main():
     for thread in threads:
         thread.join()
 
+    # Show the created list
     print("after the main joins")
     print(fizzbuzz_list.string_list)
 
